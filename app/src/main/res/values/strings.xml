@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FitFeed</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="new_user">New User?</string>
+    <string name="signup">SignUp</string>
+    <string name="height">Height (in cms)</string>
+    <string name="weight">Weight (in kgs)</string>
+    <string name="password_again">Enter Password again</string>
+</resources>
