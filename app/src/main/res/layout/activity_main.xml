@@ -54,7 +54,7 @@
         android:text="@string/login"
         android:id="@+id/loginButton"
          />
-        <si
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

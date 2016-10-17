@@ -9,4 +9,5 @@
     <string name="height">Height (in cms)</string>
     <string name="weight">Weight (in kgs)</string>
     <string name="password_again">Enter Password again</string>
+    <string name="age">Age</string>
 </resources>
