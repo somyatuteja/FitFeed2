@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1036454462553",
+    "firebase_url": "https://fitfeed-7ae6a.firebaseio.com",
+    "project_id": "fitfeed-7ae6a",
+    "storage_bucket": "fitfeed-7ae6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036454462553:android:b196c53715156d1f",
+        "android_client_info": {
+          "package_name": "com.example.hp.fitfeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036454462553-6fvglrqtm8qk8dfp23n5epb5g8rle4kp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hp.fitfeed",
+            "certificate_hash": "9FBA0BC192F8364E169DEE004EDCB3259468F192"
+          }
+        },
+        {
+          "client_id": "1036454462553-rlug1r9h6878u7rcnrj2n7kkcjf4qe5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpKziNDU13dxo9cbAIOChBsx3x7z1LqrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036454462553-rlug1r9h6878u7rcnrj2n7kkcjf4qe5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
