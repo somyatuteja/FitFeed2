@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                             goToHomeActivity();
                             Log.v("MainActivity","dhfjshfkjsdhkjshd");
 
+
                         }
                         if(task.isComplete())
                         {
@@ -87,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
                         else
                             Log.v("MainActivity","bakwaas");
 
+                        if(task.isComplete())
+                        {
+                            Log.v("MainActivity","complete");
+
+                        }
+                        else
+                            Log.v("MainActivity","bakwaas");
                     }
                 });
             }
