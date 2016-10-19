@@ -7,8 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="com.example.hp.fitfeed.MainActivity"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    android:focusable="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +24,8 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
 
-        android:textColor="@color/abc_primary_text_disable_only_material_light"
         android:textAllCaps="true"
-        android:textSize="26dp"
+        android:textSize="35dp"
         android:textStyle="bold"
         android:typeface="normal"
 
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/loginButton"
+        style="?android:attr/borderlessButtonStyle"
          />
         
         <View
@@ -77,6 +79,8 @@
             android:layout_height="wrap_content"
             android:text="@string/signup"
             android:id="@+id/signupButton"
+            android:backgroundTint="@android:color/holo_red_light"
+            style="?android:attr/borderlessButtonStyle"
             />
 
     </LinearLayout>

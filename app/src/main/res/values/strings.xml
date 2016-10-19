@@ -13,4 +13,6 @@
     <string name="sex">Sex</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="logout">Logout</string>
+    <string name="lets_get_started">Lets get started</string>
 </resources>
