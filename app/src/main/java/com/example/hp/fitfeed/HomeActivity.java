@@ -10,8 +10,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class HomeActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+public class HomeActivity extends AppCompatActivity {
+    FirebaseAuth auth=FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +49,17 @@ public class HomeActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Logging you out", Toast.LENGTH_LONG);
         toast.show();
+        auth.signOut();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+
     }
  void viewprofile()
  {
+
+     FirebaseUser curuser=auth.getCurrentUser();
 
  }
     }
