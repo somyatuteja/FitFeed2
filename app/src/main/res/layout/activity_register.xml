@@ -8,6 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hp.fitfeed.RegisterActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,10 +23,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@color/abc_primary_text_disable_only_material_light"
+            android:textSize="20dp"
+            android:typeface="normal"
+            android:id="@+id/newNameTextView"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/newNameEditText"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/email"
             android:textColor="@color/abc_primary_text_disable_only_material_light"
           android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/newUNameTextView"
   />
         <EditText
             android:layout_width="match_parent"
@@ -46,6 +74,7 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/newPasswordTextView"
             />
         <EditText
             android:layout_width="match_parent"
@@ -68,7 +97,7 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
-            android:id="@+id/passwordAgainEditText"
+            android:id="@+id/passwordTextView2"
             />
         <EditText
             android:layout_width="match_parent"
@@ -92,6 +121,7 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/heightTextView"
             />
         <EditText
             android:layout_width="match_parent"
@@ -115,6 +145,7 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/weightTextView"
             />
         <EditText
             android:layout_width="match_parent"
@@ -138,6 +169,7 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/ageTextView"
             />
         <EditText
             android:layout_width="match_parent"
@@ -161,11 +193,12 @@
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="20dp"
             android:typeface="normal"
+            android:id="@+id/sexTextView"
             />
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:id="@+id/sexRadioGroup"
             android:ems="10"
             android:inputType="textPassword"
             android:layout_marginLeft="5dp"
@@ -178,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Female"
-                    android:id="@+id/femaleradioButton"
+                    android:id="@+id/femaleRadioButton"
                     android:layout_marginLeft="30dp"
                     />
 
@@ -186,17 +219,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
-                    android:id="@+id/maleradioButton2" />
+                    android:id="@+id/maleRadioButton2" />
 
             </LinearLayout>
 
         </RadioGroup>
+
     </LinearLayout>
 
     <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:text="@string/register"/>
+    android:text="@string/register"
+        android:id="@+id/registerButton"/>
 </LinearLayout>
+</ScrollView>
 </RelativeLayout>

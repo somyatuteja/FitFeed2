@@ -104,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v("MainActivity","in signup");
                 Intent intent =new Intent(getBaseContext(),RegisterActivity.class);
+                Log.v("MainActivity","going");
                    startActivity(intent);
                             }
         });
