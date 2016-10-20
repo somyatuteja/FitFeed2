@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.v("MainActivity", "something");
                                 editor.putString("username", mUnameEditText.getText().toString());
                                 editor.commit();
-                                Toast toast = Toast.makeText(getApplicationContext(), "Please enter the username and password", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Logging you in", Toast.LENGTH_LONG);
                                 toast.show();
                                 Log.v("MainActivity", "blah");
                                 mProgress.dismiss();
@@ -114,9 +114,5 @@ public class MainActivity extends AppCompatActivity {
                    startActivity(intent);
                             }
         });
-
-
     }
-
-
 }

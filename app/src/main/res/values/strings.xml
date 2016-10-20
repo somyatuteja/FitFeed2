@@ -14,6 +14,7 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="logout">Logout</string>
+    <string name="welcome_to_fitfeed">Welcome to FitFeed, Lets move towards a healthier you</string>
     <string name="lets_get_started">Lets get started</string>
     <string name="view_profile">View profile</string>
 </resources>

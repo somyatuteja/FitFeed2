@@ -19,13 +19,24 @@
         android:id="@+id/linearLayout"
         android:gravity="center"
        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_fitfeed"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:typeface="normal"
+            android:layout_marginBottom="30dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-
+        android:textColor="@color/abc_primary_text_disable_only_material_light"
         android:textAllCaps="true"
-        android:textSize="35dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:typeface="normal"
 
