@@ -16,4 +16,5 @@
     <string name="welcome_to_fitfeed">Welcome to fitfeed</string>
     <string name="logout">Logout</string>
     <string name="view_profile">View Profile</string>
+    <string name="t1">Hey, what do you plan to eat today?</string>
 </resources>

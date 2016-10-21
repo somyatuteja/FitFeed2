@@ -58,13 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Log.v("RegisterActivity","in here");
         Log.v("RegisterActivity","starting");
         mAuth=FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Users");
         mProgress=new ProgressDialog(this);
 
        // mRootRef=new Firebase("https://fitfeed-7ae6a.firebaseio.com/Users");
-        mNameValue=(EditText)findViewById(R.id.newNameEditText);
+       // mNameValue=(EditText)findViewById(R.id.newNameEditText);
         mUNameValue=(EditText)findViewById(R.id.newUsernameEditText);
         mPasswordValue=(EditText)findViewById(R.id.newPasswordEditText);
         mPasswordAgainValue=(EditText)findViewById(R.id.newPasswordEditText2);
@@ -105,10 +106,11 @@ public class RegisterActivity extends AppCompatActivity {
                 mRegisterButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-
+                        Log.v("RegisterActivity","in here");
                         int selected_id=mRadioG.getCheckedRadioButtonId();
-
+                        Log.v("RegisterActivity",Integer.toString(selected_id));
                         mSex=(RadioButton)findViewById(selected_id);
+
 
 
 
