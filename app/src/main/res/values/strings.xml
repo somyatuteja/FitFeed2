@@ -13,4 +13,7 @@
     <string name="sex">Sex</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="welcome_to_fitfeed">Welcome to fitfeed</string>
+    <string name="logout">Logout</string>
+    <string name="view_profile">View Profile</string>
 </resources>
