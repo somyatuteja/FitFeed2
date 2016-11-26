@@ -1,7 +1,6 @@
 package com.example.hp.fitfeed;
 
 
-        import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +13,7 @@ public class DbHelper1 extends SQLiteOpenHelper {
 
 
     public static  final int DATABASE_VERSION=1;
-    public static  final String DATABASE_NAME="Database.db";
+    public static  final String DATABASE_NAME= "databases/Database.db";
     public static final String TABLE_NAME = "FoodTable";
 
     public static final String COLUMN_FoodName = "FoodName";

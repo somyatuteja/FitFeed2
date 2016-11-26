@@ -19,14 +19,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
 public class HomeActivity extends AppCompatActivity {
     TextView t1,t2;
-    DbHelper1 db;
+    DbHelper db;
     AutoCompleteTextView actv;
     Context context=null;
     //String str[]={"Anant","Akshay"};
@@ -35,19 +42,54 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+         FirebaseUser firebaseUser=auth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
+            Log.v("HomeActivity",firebaseUser.getUid());
+           DatabaseReference firebaseDatabase=FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
+           firebaseDatabase.addChildEventListener(new ChildEventListener() {
+               @Override
+               public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                   String key=dataSnapshot.getKey();
+                   String value=dataSnapshot.getValue(String.class);
+                   Log.v("HomeActivity",key+" : "+value);
+
+               }
+
+               @Override
+               public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+               }
+
+               @Override
+               public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+               }
+
+               @Override
+               public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+               }
+
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
+
+               }
+           });
+        }
         t1=(TextView)findViewById(R.id.textView2);
         t2=(TextView)findViewById(R.id.textView3);
         Button b=(Button)findViewById(R.id.b1);
-        db=new DbHelper1(getBaseContext());
+        db=new DbHelper(getBaseContext());
         actv=(AutoCompleteTextView)findViewById(R.id.AutoCompleteTextView1);
-        Cursor cname = db.retrieveFoodNames();
+        Cursor cname = db.getData();
 
-         String[] names = new String[cname.getCount()];
-        for(int i = 0; i < cname.getCount(); i++){
+         String[] names = new String[cname.getCount()-1];
+        for(int i = 0; i < cname.getCount()-1; i++){
             cname.moveToNext();
-
             names[i] = cname.getString(0);
             Log.v("HomeActivity",names[i]);
+            
         }
         ArrayAdapter<String> ard=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,names);
         actv.setAdapter(ard);
@@ -57,10 +99,10 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String food = actv.getText().toString();
                 if (food != null) {
-                    Cursor result = db.retrieveData(food);
+                    Cursor result = db.getData();
                     if (result.getCount() == 0) {
-                        Toast t = Toast.makeText(getApplicationContext(), "No such food in database", Toast.LENGTH_SHORT);
-                        t.show();
+                        Toast toast = Toast.makeText(getApplicationContext(), "No such food in database", Toast.LENGTH_SHORT);
+                        toast.show();
                     } else {
                         String FoodName = "Food Name:\n";
                         String Calories = "Calories:\n";
@@ -101,11 +143,8 @@ public class HomeActivity extends AppCompatActivity {
 
             list.setAdapter(adapter);**/
 
-
         }
-
-
-    @Override
+ @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater=getMenuInflater();
@@ -143,9 +182,9 @@ public class HomeActivity extends AppCompatActivity {
     }
  void viewprofile()
  {
-
+     Intent intent=getIntent();
+     String uID=intent.getStringExtra("user");
      FirebaseUser curuser=auth.getCurrentUser();
-
  }
     }
 

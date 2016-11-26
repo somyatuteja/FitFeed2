@@ -6,7 +6,6 @@
     android:id="@+id/logoutMenu"
     android:title="@string/logout"
     compat:showAsAction="never"
-
     />
     <item
         android:id="@+id/viewProfileMenu"

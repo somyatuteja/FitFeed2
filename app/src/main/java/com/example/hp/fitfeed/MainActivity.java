@@ -23,21 +23,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
-    void goToHomeActivity()
+    void goToHomeActivity(String uid)
     {
-
-
         Intent intent = new Intent(getBaseContext(),HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+        intent.putExtra("LoggedInUId",uid);
         startActivity(intent);
         finish();
-
-
-    }
+  }
 
     private ProgressDialog mProgress;
-       private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     public static final String TAG="username";
     public static final String DEFAULT="Username";
     @Override
@@ -45,15 +41,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
          SharedPreferences sharedPreferences= getSharedPreferences("LoggedInUser", Context.MODE_PRIVATE);
-        Log.v("MainActivity","jwebkjf");
-
-        String user= sharedPreferences.getString("username",DEFAULT);
+         String user= sharedPreferences.getString("username",DEFAULT);
         Log.v("MainActivity","got preference : "+user);
         if(!user.equals(DEFAULT))
         {
-
             Log.v("MainActivity","going to home activity");
-            goToHomeActivity();
+            goToHomeActivity(user);
         }
 
         mAuth= FirebaseAuth.getInstance();
@@ -88,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
                                 Log.v("MainActivity", "successful");
                                 SharedPreferences sharedPreferences1 = getSharedPreferences("LoggedInUser", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences1.edit();
-                                Log.v("MainActivity", "something");
-                                editor.putString("username", mUnameEditText.getText().toString());
+                                editor.putString("username",mAuth.getCurrentUser().getUid());
                                 editor.commit();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Logging you in", Toast.LENGTH_LONG);
                                 toast.show();
                                 Log.v("MainActivity", "blah");
                                 mProgress.dismiss();
-                                goToHomeActivity();
+                                goToHomeActivity(mAuth.getCurrentUser().getUid());
 
                             }
                             if (task.isComplete()) {
