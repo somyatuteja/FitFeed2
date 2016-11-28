@@ -16,7 +16,7 @@ public class DbHelper extends SQLiteAssetHelper {
     public Cursor getData() {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        String [] sqlSelect = {"'Food Name'"};
+        String [] sqlSelect = {"FoodName"};
         qb.setTables(TableName);
         Cursor c = qb.query(db, sqlSelect, null, null,
                 null, null, null);
