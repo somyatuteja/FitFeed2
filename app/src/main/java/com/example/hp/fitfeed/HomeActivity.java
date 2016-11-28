@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hp.fitfeed.com.example.hp.fitfeed.CardViewAdapter;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,9 +40,9 @@ public class HomeActivity extends AppCompatActivity {
     TextView t1,t2;
     DbHelper db;
     AutoCompleteTextView actv;
-    Context context=null;
-    //String str[]={"Anant","Akshay"};
+    RecyclerView mHomeCardView;
     FirebaseAuth auth=FirebaseAuth.getInstance();
+    CardViewAdapter cardViewAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +56,13 @@ public class HomeActivity extends AppCompatActivity {
                @Override
                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                    String key=dataSnapshot.getKey();
-                   String value=dataSnapshot.getValue(String.class);
-                   Log.v("HomeActivity",key+" : "+value);
+                   try {
+                       String value = dataSnapshot.getValue(String.class);
+                       Log.v("HomeActivity", key + " : " + value);
+                   }
+                   catch(Exception e){
+                       e.printStackTrace();
+                   }
 
                }
 
@@ -77,6 +87,8 @@ public class HomeActivity extends AppCompatActivity {
                }
            });
         }
+
+
         t1=(TextView)findViewById(R.id.textView2);
         t2=(TextView)findViewById(R.id.textView3);
         Button b=(Button)findViewById(R.id.b1);
@@ -127,23 +139,20 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-           /**DbHelper dbObject=new DbHelper(context);
-            try {
-                dbObject.createDataBase();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-           Cursor cursor= dbObject.getCalories(food);
-            String[] from = new String[] {"Database.FoodTable.Food Name","Database.FoodTable.Calories" };
-            int[] to = new int[] { R.id.TextView1, R.id.TextView2 };
-
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                    getApplicationContext(), R.layout.activity_home, cursor, from, to);
-            ListView list = (ListView) findViewById(R.id.ListView1);
-
-            list.setAdapter(adapter);**/
-
         }
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Log.v("HomeActivity","In onStart");
+        mHomeCardView=(RecyclerView)findViewById(R.id.homeCardView);
+        cardViewAdapter =new CardViewAdapter(getApplicationContext());
+        mHomeCardView.setAdapter(cardViewAdapter);
+        mHomeCardView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
+    }
+
  @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -171,8 +180,7 @@ public class HomeActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "Logging you out", Toast.LENGTH_LONG);
-        toast.show();
+       Toast.makeText(context, "Logging you out", Toast.LENGTH_LONG).show();
         auth.signOut();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -183,7 +191,7 @@ public class HomeActivity extends AppCompatActivity {
  void viewprofile()
  {
      Intent intent=getIntent();
-     String uID=intent.getStringExtra("user");
+    // String uID=intent.getStringExtra("user");
      FirebaseUser curuser=auth.getCurrentUser();
  }
     }
