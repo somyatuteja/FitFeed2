@@ -24,4 +24,11 @@ public class DbHelper extends SQLiteAssetHelper {
                  return c;
 
     }
+    public  int getCalorie(String foodname)
+    {
+        String [] sqlSelect={"Calorie"};
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+    }
 }

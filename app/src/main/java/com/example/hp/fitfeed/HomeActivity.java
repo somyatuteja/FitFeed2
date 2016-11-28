@@ -130,6 +130,7 @@ public class HomeActivity extends AppCompatActivity {
                             result.moveToNext();
 
                         }
+
                         t1.setText(FoodName);
                         t2.setText(Calories);
 
