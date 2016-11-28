@@ -19,4 +19,5 @@
     <string name="t1">Hey, what do you plan to eat today?</string>
     <string name="ok_healthy">Good Choice! Its a very Healthy Option</string>
     <string name="ok">OK</string>
-</resources>
+    <string name="not_healthy">Its Not a healthy option</string>
+    </resources>

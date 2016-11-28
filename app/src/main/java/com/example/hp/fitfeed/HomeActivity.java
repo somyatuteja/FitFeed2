@@ -1,5 +1,6 @@
 package com.example.hp.fitfeed;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,14 +37,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
     TextView t1,t2;
     DbHelper db;
-    AutoCompleteTextView actv;
+    AutoCompleteTextView mAutoCompleteTextView;
     RecyclerView mHomeCardView;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     CardViewAdapter cardViewAdapter;
+    Integer[] exerciseImage={R.drawable.walking ,R.drawable.aerobics,R.drawable.cycling ,R.drawable.yoga,R.drawable.swimming,R.drawable.running}    ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
         t2=(TextView)findViewById(R.id.textView3);
         Button b=(Button)findViewById(R.id.b1);
         db=new DbHelper(getBaseContext());
-        actv=(AutoCompleteTextView)findViewById(R.id.AutoCompleteTextView1);
+        mAutoCompleteTextView=(AutoCompleteTextView)findViewById(R.id.AutoCompleteTextView1);
         Cursor cname = db.getData();
 
          String[] names = new String[cname.getCount()-1];
@@ -104,39 +108,22 @@ public class HomeActivity extends AppCompatActivity {
             
         }
         ArrayAdapter<String> ard=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,names);
-        actv.setAdapter(ard);
-        //Button mButton=(Button)findViewById(R.id.b1);
-        b.setOnClickListener(new View.OnClickListener() {
+        mAutoCompleteTextView.setAdapter(ard);
+         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String food = actv.getText().toString();
+                Log.v("HomeActivity","Button Pressed");
+                String food = mAutoCompleteTextView.getText().toString();
+                Log.v("HomeActivity",food);
+
                 if (food != null) {
-                    Cursor result = db.getData();
-                    if (result.getCount() == 0) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "No such food in database", Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        String FoodName = "Food Name:\n";
-                        String Calories = "Calories:\n";
-                        int rows = result.getCount();
-                        result.moveToFirst();
-                        for (int ii = 0; ii < rows; ii++) {
-                            FoodName=FoodName.concat(result.getString(0));
-                            //FoodName = FoodName.concat(result.getString(result.getColumnIndex(")));
-                            FoodName = FoodName.concat("\n");
-                             Calories=Calories.concat(result.getString(1));
-                            //Calories = Calories.concat(result.getString(result.getColumnIndex("Calories")));
-                            Calories = Calories.concat("\n");
-                            result.moveToNext();
+
+                        checkUpdatedFood(food);
 
                         }
 
-                        t1.setText(FoodName);
-                        t2.setText(Calories);
-
-                    }
                 }
-            }
+
 
         });
 
@@ -195,6 +182,50 @@ public class HomeActivity extends AppCompatActivity {
     // String uID=intent.getStringExtra("user");
      FirebaseUser curuser=auth.getCurrentUser();
  }
+    void checkUpdatedFood(String foodname){
+        Log.v("HomeActivity","inCheck Updated Food");
+
+        DbHelper databaseHelper=new DbHelper(getApplicationContext());
+        int status=databaseHelper.getHealthyStatus(foodname);
+        if(status==1)
+        {
+            Log.v("HomeActivity","Got 1 status");
+
+            final Dialog dialog=new Dialog(this);
+         dialog.setContentView(R.layout.health_food_alertbox);
+           final Button button=(Button)findViewById(R.id.okDialogBoxOkButton);
+           button.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   dialog.dismiss();
+               }
+           });
+            dialog.show();
+        }
+        if(status==0)
+        {
+        int exerciseID=getRandomNumber();
+        Dialog dialog=getUnhealthyDialog(exerciseID);
+            dialog.show();
+        }
+
+    }
+    int getRandomNumber()
+    {
+        Random random=new Random();
+        int randomNumber=random.nextInt(6)+1;
+        return randomNumber;
+        }
+    Dialog getUnhealthyDialog(int exerciseId)
+    {
+        Dialog dialog =new Dialog(this);
+        dialog.setContentView(R.layout.unhealthy_food_dialog_box);
+        TextView mUnhealthyTextView =(TextView) findViewById(R.id.unhealthyTextView);
+        TextView alternativeTextView = (TextView) findViewById(R.id.alternativeTextView);
+        ImageView
+        return dialog;
+
+    }
     }
 
 

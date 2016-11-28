@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -14,11 +15,11 @@ public class DbHelper extends SQLiteAssetHelper {
         super(context,DB_NAME , null, 1);
     }
     public Cursor getData() {
-        SQLiteDatabase db = getReadableDatabase();
-        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         String [] sqlSelect = {"FoodName"};
-        qb.setTables(TableName);
-        Cursor c = qb.query(db, sqlSelect, null, null,
+        queryBuilder.setTables(TableName);
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
                 null, null, null);
                 c.moveToFirst();
                  return c;
@@ -27,8 +28,42 @@ public class DbHelper extends SQLiteAssetHelper {
     public  int getCalorie(String foodname)
     {
         String [] sqlSelect={"Calorie"};
-        SQLiteDatabase db = getReadableDatabase();
-        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TableName);
+        queryBuilder.appendWhere("foodname = '"+foodname+"'");
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
+                null, null, null);
+        c.moveToFirst();
+        return c.getInt(1);
+    }
+    public  int getHealthyStatus(String foodname)
+    {
+        Log.v("HomeActivity","got in function");
 
+        String [] sqlSelect={"healthy"};
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TableName);
+        queryBuilder.appendWhere("foodname = '"+foodname+"'");
+        Log.v("HomeActivity","got query");
+
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
+                null, null, null);
+        c.moveToFirst();
+        Log.v("HomeActivity","Ran query");
+        return c.getInt(0);
+    }
+    public  String getAlternative(String foodname)
+    {
+        String [] sqlSelect={"healthy"};
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TableName);
+        queryBuilder.appendWhere("foodname = '"+foodname+"'");
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
+                null, null, null);
+        c.moveToFirst();
+        return c.getString(1);
     }
 }
