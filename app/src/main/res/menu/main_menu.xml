@@ -7,6 +7,7 @@
     android:title="@string/logout"
     compat:showAsAction="never"
     />
+
     <item
         android:id="@+id/viewProfileMenu"
         android:title="@string/view_profile"

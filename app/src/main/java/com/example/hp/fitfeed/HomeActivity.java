@@ -1,5 +1,6 @@
 package com.example.hp.fitfeed;
 
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,117 +38,118 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
-    TextView t1,t2;
+    TextView t1, t2;
     DbHelper db;
     AutoCompleteTextView mAutoCompleteTextView;
     RecyclerView mHomeCardView;
-    FirebaseAuth auth=FirebaseAuth.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     CardViewAdapter cardViewAdapter;
-    Integer[] exerciseImage={R.drawable.walking ,R.drawable.aerobics,R.drawable.cycling ,R.drawable.yoga,R.drawable.swimming,R.drawable.running}    ;
+    Integer[] exerciseImage = {R.drawable.walking, R.drawable.aerobics, R.drawable.cycling, R.drawable.yoga, R.drawable.swimming, R.drawable.running};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-         FirebaseUser firebaseUser=auth.getCurrentUser();
-        if(firebaseUser!=null)
-        {
-            Log.v("HomeActivity",firebaseUser.getUid());
-           DatabaseReference firebaseDatabase=FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
-           firebaseDatabase.addChildEventListener(new ChildEventListener() {
-               @Override
-               public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                   String key=dataSnapshot.getKey();
-                   try {
-                       String value = dataSnapshot.getValue(String.class);
-                       Log.v("HomeActivity", key + " : " + value);
-                   }
-                   catch(Exception e){
-                       e.printStackTrace();
-                   }
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser != null) {
+            Log.v("HomeActivity", firebaseUser.getUid());
+            DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
+            firebaseDatabase.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    String key = dataSnapshot.getKey();
+                    try {
+                        String value = dataSnapshot.getValue(String.class);
+                        Log.v("HomeActivity", key + " : " + value);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-               }
+                }
 
-               @Override
-               public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-               }
+                }
 
-               @Override
-               public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-               }
+                }
 
-               @Override
-               public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-               }
+                }
 
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-               }
-           });
+                }
+            });
         }
 
 
-        t1=(TextView)findViewById(R.id.textView2);
-        t2=(TextView)findViewById(R.id.textView3);
-        Button b=(Button)findViewById(R.id.b1);
-        db=new DbHelper(getBaseContext());
-        mAutoCompleteTextView=(AutoCompleteTextView)findViewById(R.id.AutoCompleteTextView1);
+        t1 = (TextView) findViewById(R.id.textView2);
+        t2 = (TextView) findViewById(R.id.textView3);
+        Button b = (Button) findViewById(R.id.b1);
+        db = new DbHelper(getBaseContext());
+        mAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.AutoCompleteTextView1);
         Cursor cname = db.getData();
 
-         String[] names = new String[cname.getCount()-1];
-        for(int i = 0; i < cname.getCount()-1; i++){
+        String[] names = new String[cname.getCount() - 1];
+        for (int i = 0; i < cname.getCount() - 1; i++) {
             cname.moveToNext();
             names[i] = cname.getString(0);
-            Log.v("HomeActivity",names[i]);
-            
+            Log.v("HomeActivity", names[i]);
+
         }
-        ArrayAdapter<String> ard=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,names);
+        ArrayAdapter<String> ard = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, names);
         mAutoCompleteTextView.setAdapter(ard);
-         b.setOnClickListener(new View.OnClickListener() {
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("HomeActivity","Button Pressed");
+                Log.v("HomeActivity", "Button Pressed");
                 String food = mAutoCompleteTextView.getText().toString();
-                Log.v("HomeActivity",food);
+                Log.v("HomeActivity", food);
 
                 if (food != null) {
 
-                        checkUpdatedFood(food);
-
-                        }
+                    checkUpdatedFood(food);
 
                 }
+
+            }
 
 
         });
 
-        }
+    }
+
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
-        Log.v("HomeActivity","In onStart");
-        mHomeCardView=(RecyclerView)findViewById(R.id.homeCardView);
-        cardViewAdapter =new CardViewAdapter(getApplicationContext());
+        Log.v("HomeActivity", "In onStart");
+        mHomeCardView = (RecyclerView) findViewById(R.id.homeCardView);
+        cardViewAdapter = new CardViewAdapter(getApplicationContext());
         mHomeCardView.setAdapter(cardViewAdapter);
         mHomeCardView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
     }
 
- @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
@@ -160,15 +162,16 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }}
-        void logout()
-    {
+        }
+    }
+
+    void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("LoggedInUser", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
         Context context = getApplicationContext();
-       Toast.makeText(context, "Logging you out", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Logging you out", Toast.LENGTH_LONG).show();
         auth.signOut();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -176,57 +179,65 @@ public class HomeActivity extends AppCompatActivity {
         finish();
 
     }
- void viewprofile()
- {
-     Intent intent=getIntent();
-    // String uID=intent.getStringExtra("user");
-     FirebaseUser curuser=auth.getCurrentUser();
- }
-    void checkUpdatedFood(String foodname){
-        Log.v("HomeActivity","inCheck Updated Food");
 
-        DbHelper databaseHelper=new DbHelper(getApplicationContext());
-        int status=databaseHelper.getHealthyStatus(foodname);
-        if(status==1)
-        {
-            Log.v("HomeActivity","Got 1 status");
+    void viewprofile() {
+        Intent intent = getIntent();
+        // String uID=intent.getStringExtra("user");
+        FirebaseUser curuser = auth.getCurrentUser();
+    }
 
-            final Dialog dialog=new Dialog(this);
-         dialog.setContentView(R.layout.health_food_alertbox);
-           final Button button=(Button)findViewById(R.id.okDialogBoxOkButton);
-           button.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   dialog.dismiss();
-               }
-           });
+    void checkUpdatedFood(String foodname) {
+        Log.v("HomeActivity", "inCheck Updated Food");
+
+        DbHelper databaseHelper = new DbHelper(getApplicationContext());
+        int status = databaseHelper.getHealthyStatus(foodname);
+        if (status == 1) {
+            Log.v("HomeActivity", "Got 1 status");
+
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.health_food_alertbox);
+            final Button button = (Button) findViewById(R.id.okDialogBoxOkButton);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             dialog.show();
         }
-        if(status==0)
-        {
-        int exerciseID=getRandomNumber();
-        Dialog dialog=getUnhealthyDialog(exerciseID);
+        if (status == 0) {
+            int exerciseID = getRandomNumber();
+            Dialog dialog = getUnhealthyDialog(exerciseID, foodname);
             dialog.show();
         }
 
     }
-    int getRandomNumber()
-    {
-        Random random=new Random();
-        int randomNumber=random.nextInt(6)+1;
+
+    int getRandomNumber() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(6) + 1;
         return randomNumber;
-        }
-    Dialog getUnhealthyDialog(int exerciseId)
-    {
-        Dialog dialog =new Dialog(this);
+    }
+
+    Dialog getUnhealthyDialog(int exerciseId, String food) {
+        Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.unhealthy_food_dialog_box);
-        TextView mUnhealthyTextView =(TextView) findViewById(R.id.unhealthyTextView);
-        TextView alternativeTextView = (TextView) findViewById(R.id.alternativeTextView);
-        ImageView
+        TextView mUnhealthyTextView = (TextView) findViewById(R.id.unhealthyTextView);
+        TextView mAlternativeTextView = (TextView) findViewById(R.id.alternativeTextView);
+        ImageView mExerciseImageView = (ImageView) findViewById(R.id.unhealthyImageView);
+        DbHelper dbHelper = new DbHelper(getBaseContext());
+        String exerciseName = dbHelper.getExerciseName(exerciseId);
+        int exerciseCalorie = dbHelper.getExerciseCalorie(exerciseId);
+        int foodcalorie = dbHelper.getCalorie(food);
+        float exerciseTime = foodcalorie / exerciseCalorie;
+        DecimalFormat df = new DecimalFormat("##.##");
+        df.setRoundingMode(RoundingMode.DOWN);
+
+
+        mUnhealthyTextView.setText("This is Not a Healthy Option. You would have to do " + exerciseName + " for " + df.format(exerciseTime));
         return dialog;
 
     }
-    }
-
+}
 
 

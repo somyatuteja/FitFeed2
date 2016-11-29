@@ -23,14 +23,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
-    void goToHomeActivity(String uid)
+    void goToHomeActivity(String email)
     {
         Intent intent = new Intent(getBaseContext(),HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("LoggedInUId",uid);
+        intent.putExtra("email",email);
         startActivity(intent);
         finish();
-  }
+
+
+    }
 
     private ProgressDialog mProgress;
     private FirebaseAuth mAuth;
@@ -41,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
          SharedPreferences sharedPreferences= getSharedPreferences("LoggedInUser", Context.MODE_PRIVATE);
-         String user= sharedPreferences.getString("username",DEFAULT);
+        Log.v("MainActivity","jwebkjf");
+
+        String user= sharedPreferences.getString("username",DEFAULT);
         Log.v("MainActivity","got preference : "+user);
         if(!user.equals(DEFAULT))
         {
+
             Log.v("MainActivity","going to home activity");
             goToHomeActivity(user);
         }
@@ -81,18 +86,19 @@ public class MainActivity extends AppCompatActivity {
                                 Log.v("MainActivity", "successful");
                                 SharedPreferences sharedPreferences1 = getSharedPreferences("LoggedInUser", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences1.edit();
-                                editor.putString("username",mAuth.getCurrentUser().getUid());
+                                Log.v("MainActivity", "something");
+                                editor.putString("username", mUnameEditText.getText().toString());
                                 editor.commit();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Logging you in", Toast.LENGTH_LONG);
                                 toast.show();
-                                Log.v("MainActivity", "blah");
+                                Log.v("MainActivity", "after toast");
                                 mProgress.dismiss();
-                                goToHomeActivity(mAuth.getCurrentUser().getUid());
+                                goToHomeActivity(mUnameEditText.getText().toString());
 
                             }
                             if (task.isComplete()) {
                                 Log.v("MainActivity", "complete");
-                            } else Log.v("MainActivity", "bakwaas");
+                            } else Log.v("MainActivity", "incomplete");
                         }
                     });
                 }

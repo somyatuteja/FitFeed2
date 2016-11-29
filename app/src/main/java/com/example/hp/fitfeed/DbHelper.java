@@ -9,7 +9,7 @@ import android.util.Log;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class DbHelper extends SQLiteAssetHelper {
-   private static String DB_NAME= "Database.db";
+    private static String DB_NAME= "Database.db";
     private static String TableName="FoodTable";
     public DbHelper(Context context) {
         super(context,DB_NAME , null, 1);
@@ -21,8 +21,8 @@ public class DbHelper extends SQLiteAssetHelper {
         queryBuilder.setTables(TableName);
         Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
                 null, null, null);
-                c.moveToFirst();
-                 return c;
+        c.moveToFirst();
+        return c;
 
     }
     public  int getCalorie(String foodname)
@@ -66,4 +66,29 @@ public class DbHelper extends SQLiteAssetHelper {
         c.moveToFirst();
         return c.getString(1);
     }
+    public String getExerciseName(int id)
+    {
+        String [] sqlSelect={"exercisename"};
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TableName);
+        queryBuilder.appendWhere("id = "+id+"");
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
+                null, null, null);
+        c.moveToFirst();
+        return c.getString(0);
+    }
+    public int getExerciseCalorie(int id)
+    {
+        String [] sqlSelect={"calorie"};
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TableName);
+        queryBuilder.appendWhere("id = "+id+"");
+        Cursor c = queryBuilder.query(readableDatabase, sqlSelect, null, null,
+                null, null, null);
+        c.moveToFirst();
+        return c.getInt(0);
+    }
 }
+

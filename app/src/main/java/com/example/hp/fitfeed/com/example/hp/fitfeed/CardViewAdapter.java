@@ -2,6 +2,7 @@ package com.example.hp.fitfeed.com.example.hp.fitfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,21 +78,26 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ListVi
     {
         TextView mTextView;
        ImageView mImageView;
+
+
         public ListViewHolder(View itemView) {
             super(itemView);
 
+            context=itemView.getContext();
+            itemView.setOnClickListener(this);
             mTextView=(TextView) itemView.findViewById(R.id.cardTextView);
             mImageView=(ImageView) itemView.findViewById(R.id.cardImageView);
 
 
         }
         @Override
-        public void onClick(View v) {
-           /* Intent intent = new Intent(context, Description_Activity.class);
+        public void onClick(View view) {
+           Intent intent = new Intent(context, com.example.hp.fitfeed.FragmentActivity.class);
             Log.v("MainActivity","inOnClick");
-            ToDoListItem listItem = arrayListItem.get(getPosition());
-            intent.putExtra("ID",listItem.id);
-            context.startActivity(intent);*/
+            String listItem = arrayListItem.get(getPosition());
+            intent.putExtra("ID",listItem);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 }

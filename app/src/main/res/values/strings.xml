@@ -8,16 +8,22 @@
     <string name="signup">SignUp</string>
     <string name="height">Height (in cms)</string>
     <string name="weight">Weight (in kgs)</string>
-    <string name="password_again">Enter Password again</string>
+    <string name="password_again">Confirm Password</string>
     <string name="age">Age</string>
     <string name="sex">Sex</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="welcome_to_fitfeed">Welcome to fitfeed</string>
+    <string name="name">Name</string>
+    <string name="welcome_to_fitfeed">Welcome to FitFeed</string>
     <string name="logout">Logout</string>
     <string name="view_profile">View Profile</string>
     <string name="t1">Hey, what do you plan to eat today?</string>
     <string name="ok_healthy">Good Choice! Its a very Healthy Option</string>
     <string name="ok">OK</string>
     <string name="not_healthy">Its Not a healthy option</string>
-    </resources>
+    <string name="food">Hey, what do you want to eat ?</string>
+    <string name="breakfast">Hey, what do you want to eat for breakfast ?</string>
+    <string name="lunch">Hey, what do you want to eat for lunch ?</string>
+    <string name="dinner">Hey, what do you want to eat for dinner ?</string>
+    <string name="snacks">Hey, what fo you want to eat for snacks ?</string>
+</resources>
